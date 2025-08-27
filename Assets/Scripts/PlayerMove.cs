@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
     Vector2 movement; // Movement vector
     public float jumpForce = 300f; // Force applied when jumping
     Rigidbody2D rb;
+    Animator animator;
 
     bool canJump = true; // Flag to check if the player can jump
 
@@ -13,6 +14,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -31,7 +33,10 @@ public class PlayerMove : MonoBehaviour
     // FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
     void FixedUpdate()
     {
-        rb.AddForce(movement * speed);
+        // Move the player based on input and speed keeping the current vertical velocity
+        Vector3 newMovement = new Vector3(movement.x * speed, rb.linearVelocity.y, 0);
+        rb.linearVelocity = newMovement;
+        animator.SetFloat("Velocidade", Mathf.Abs(movement.x)); // Update the Speed parameter in the Animator
     }
 
     void OnCollisionEnter2D(Collision2D collision)
