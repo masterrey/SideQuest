@@ -29,6 +29,8 @@ public class PlayerMove : MonoBehaviour
             canJump = false; // Set canJump to false to prevent double jumping
         }
 
+        animator.SetBool("Pulando", !canJump); // Update the Jump parameter in the Animator
+
     }
     // FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
     void FixedUpdate()
