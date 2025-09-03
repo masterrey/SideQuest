@@ -6,16 +6,16 @@ public class PlayerMove : MonoBehaviour
     public float speed = 10f; // Speed of player movement
     Vector2 movement; // Movement vector
     public float jumpForce = 300f; // Force applied when jumping
-    Rigidbody2D rb;
-    Animator animator;
+    public Rigidbody2D rb;
+    public Animator animator;
     SpriteRenderer spriteRenderer;
     public float knockbackForce = 200f; // Force applied when taking damage
 
     bool canJump = true; // Flag to check if the player can jump
 
-    bool canMove = true;
+    public bool canMove = true;
 
-    bool invincible = false;
+    public bool invincible = false;
 
     float distanceToGround; // Distance from the player's center to the ground
 

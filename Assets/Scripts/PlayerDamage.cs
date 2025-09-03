@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour
@@ -29,6 +30,21 @@ public class PlayerDamage : MonoBehaviour
                 health -= 10;
                 Debug.Log("Player Health: " + health);
             }
+            if (health <= 0)
+            {
+                StartCoroutine(Die(collision.otherCollider));
+            }
         }
+    }
+
+    IEnumerator Die(Collider2D collider)
+    {
+        yield return new WaitForSeconds(1f);
+        playerMove.animator.SetBool("Morto", true);
+        playerMove.canMove = false;
+        collider.enabled = false; // Disable enemy collider to prevent further collisions
+        playerMove.rb.AddForce(new Vector2(0, playerMove.knockbackForce), ForceMode2D.Impulse); // Apply upward force on death
+        Destroy(gameObject, 3f); // Destroy the player object after 1 second
+
     }
 }

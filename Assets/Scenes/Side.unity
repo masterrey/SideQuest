@@ -312,7 +312,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 500
+  rb: {fileID: 0}
+  animator: {fileID: 0}
   knockbackForce: 10
+  canMove: 1
+  invincible: 0
 --- !u!58 &152041497
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -33447,7 +33451,7 @@ GameObject:
   - component: {fileID: 890331118}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
