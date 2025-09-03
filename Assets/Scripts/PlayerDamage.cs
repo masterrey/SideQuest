@@ -24,7 +24,7 @@ public class PlayerDamage : MonoBehaviour
        
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            playerMove.DamageTaken(collision.contacts[0].relativeVelocity);
+            playerMove.DamageTaken(transform.position - collision.transform.position);
 
             health -= 10;
             Debug.Log("Player Health: " + health);

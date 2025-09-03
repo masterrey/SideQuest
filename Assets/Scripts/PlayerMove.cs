@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -11,6 +12,8 @@ public class PlayerMove : MonoBehaviour
     public float knockbackForce = 200f; // Force applied when taking damage
 
     bool canJump = true; // Flag to check if the player can jump
+
+    bool canMove = true;
 
     float distanceToGround; // Distance from the player's center to the ground
 
@@ -43,6 +46,9 @@ public class PlayerMove : MonoBehaviour
     // FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
     void FixedUpdate()
     {
+        // Prevent movement if canMove is false
+        if (!canMove) return;
+
         // Move the player based on input and speed keeping the current vertical velocity
         Vector3 newMovement = new Vector3(movement.x * speed, rb.linearVelocity.y, 0);
         rb.linearVelocity = newMovement;
@@ -61,9 +67,20 @@ public class PlayerMove : MonoBehaviour
     public void DamageTaken(Vector3 relativeImpact)
     {
         animator.SetTrigger("Dano"); // Trigger the Damage animation
-        rb.AddForce(relativeImpact * knockbackForce, ForceMode2D.Impulse); // Apply knockback force
+        canMove = false; // Disable movement temporarily
+        StartCoroutine(KnockBack(relativeImpact)); // Start the knockback coroutine
     }
 
+    IEnumerator KnockBack(Vector3 relativeImpact)
+    {
+        yield return new WaitForSeconds(0.1f); // Wait for a short duration
+
+        rb.AddForce(relativeImpact.normalized * knockbackForce,ForceMode2D.Impulse); // Apply knockback force
+        
+        yield return new WaitForSeconds(0.2f); // Wait for the knockback effect to finish
+
+        canMove = true; // Re-enable movement
+    }
 
 
     void OnCollisionEnter2D(Collision2D collision)

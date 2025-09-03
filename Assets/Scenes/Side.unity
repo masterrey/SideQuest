@@ -312,7 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 500
-  knockbackForce: 2
+  knockbackForce: 20
 --- !u!58 &152041497
 CircleCollider2D:
   m_ObjectHideFlags: 0
