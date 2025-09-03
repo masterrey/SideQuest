@@ -73,12 +73,13 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator KnockBack(Vector3 relativeImpact)
     {
-        yield return new WaitForSeconds(0.1f); // Wait for a short duration
+        yield return new WaitForFixedUpdate(); // Wait for the next physics update
 
         rb.AddForce(relativeImpact.normalized * knockbackForce,ForceMode2D.Impulse); // Apply knockback force
         
         yield return new WaitForSeconds(0.2f); // Wait for the knockback effect to finish
 
+        rb.linearVelocity = new Vector2(0, 0); 
         canMove = true; // Re-enable movement
     }
 
