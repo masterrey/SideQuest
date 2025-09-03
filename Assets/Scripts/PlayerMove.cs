@@ -15,6 +15,8 @@ public class PlayerMove : MonoBehaviour
 
     bool canMove = true;
 
+    bool invincible = false;
+
     float distanceToGround; // Distance from the player's center to the ground
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -64,16 +66,21 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    public void DamageTaken(Vector3 relativeImpact)
+    public bool DamageTaken(Vector3 relativeImpact)
     {
+        if(!canMove || invincible) return false; // Ignore damage if already in knockback or invincible
+
         animator.SetTrigger("Dano"); // Trigger the Damage animation
         canMove = false; // Disable movement temporarily
         StartCoroutine(KnockBack(relativeImpact)); // Start the knockback coroutine
+        return true;
     }
 
     IEnumerator KnockBack(Vector3 relativeImpact)
     {
         yield return new WaitForFixedUpdate(); // Wait for the next physics update
+
+        spriteRenderer.color = Color.red; // Change color to red to indicate damage
 
         rb.AddForce(relativeImpact.normalized * knockbackForce,ForceMode2D.Impulse); // Apply knockback force
         
@@ -81,6 +88,30 @@ public class PlayerMove : MonoBehaviour
 
         rb.linearVelocity = new Vector2(0, 0); 
         canMove = true; // Re-enable movement
+        spriteRenderer.color = Color.white; // Reset color to white
+        StartCoroutine(Invincible(1f)); // Start temporary invincibility for 2 seconds
+
+    }
+
+    IEnumerator Invincible(float time)
+    {
+        float elapsed = 0f;
+        invincible = true;
+        while (true)
+        {
+            elapsed += Time.deltaTime;
+            spriteRenderer.color = new Color(1f, 1f, 1f, Mathf.PingPong(elapsed * 10, 1)); // Flicker effect by changing alpha
+            
+            if (elapsed >= time)
+            {
+                invincible = false;
+                spriteRenderer.color = Color.white; // Reset color to white
+                yield break; // Exit the coroutine after the invincibility duration
+            }
+            yield return new WaitForFixedUpdate(); // Wait for the next physics update
+            
+        }
+
     }
 
 

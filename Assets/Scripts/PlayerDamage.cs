@@ -19,15 +19,16 @@ public class PlayerDamage : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
        
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            playerMove.DamageTaken(transform.position - collision.transform.position);
-
-            health -= 10;
-            Debug.Log("Player Health: " + health);
+            if (playerMove.DamageTaken(transform.position - collision.transform.position))
+            {
+                health -= 10;
+                Debug.Log("Player Health: " + health);
+            }
         }
     }
 }
