@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     SpriteRenderer spriteRenderer;
+    public float knockbackForce = 200f; // Force applied when taking damage
 
     bool canJump = true; // Flag to check if the player can jump
 
@@ -57,15 +58,16 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    public void DamageTaken(Vector3 relativeImpact)
+    {
+        animator.SetTrigger("Dano"); // Trigger the Damage animation
+        rb.AddForce(relativeImpact * knockbackForce, ForceMode2D.Impulse); // Apply knockback force
+    }
+
+
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check if the player collides with the ground or any other object
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Destroy(gameObject); // Destroy the player object if it collides with an enemy
-
-        }
-
         // Check if the player is on the ground
         if (collision.gameObject.CompareTag("Ground"))
         {

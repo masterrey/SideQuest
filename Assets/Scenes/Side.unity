@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 152041495}
   - component: {fileID: 152041496}
   - component: {fileID: 152041497}
+  - component: {fileID: 152041498}
   m_Layer: 0
   m_Name: supermario
   m_TagString: Player
@@ -311,6 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 500
+  knockbackForce: 2
 --- !u!58 &152041497
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -347,6 +349,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.0015912056, y: 0.39}
   m_Radius: 0.33
+--- !u!114 &152041498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152041490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e2c068951166d4e9c580a15388e696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &774320629
 GameObject:
   m_ObjectHideFlags: 0
@@ -33625,6 +33640,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemies-dinosaur_15 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33689,6 +33712,14 @@ PrefabInstance:
     - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
       propertyPath: m_Name
       value: enemies-dinosaur_15 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -52405,6 +52436,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemies-dinosaur_15 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -52418,14 +52457,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3971031700843376046, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
-      propertyPath: speed
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3971031700843376046, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6993596135020832152, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 44.97
@@ -52469,6 +52500,14 @@ PrefabInstance:
     - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
       propertyPath: m_Name
       value: enemies-dinosaur_15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476530684802690643, guid: 460106ce2c6f9974885286e052c6e10a, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
