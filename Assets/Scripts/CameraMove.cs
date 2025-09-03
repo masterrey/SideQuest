@@ -23,4 +23,9 @@ public class CameraMove : MonoBehaviour
         }
 
     }
+
+    private void FixedUpdate()
+    {
+        
+    }
 }
