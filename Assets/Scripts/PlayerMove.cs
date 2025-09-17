@@ -8,8 +8,10 @@ public class PlayerMove : MonoBehaviour
     public float jumpForce = 300f; // Force applied when jumping
     public Rigidbody2D rb;
     public Animator animator;
-    SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
+    public GameObject BoneRoot;
     public float knockbackForce = 200f; // Force applied when taking damage
+    public ParticleSystem Magic;
 
     bool canJump = true; // Flag to check if the player can jump
 
@@ -23,8 +25,10 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        if(animator == null)
+            animator = GetComponent<Animator>();
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -33,9 +37,23 @@ public class PlayerMove : MonoBehaviour
          movement = new Vector2(Input.GetAxis("Horizontal"), 0);
         // Flip the sprite based on movement direction
         if (movement.x > 0)
-            spriteRenderer.flipX = false; // Facing right
+        {
+            if (spriteRenderer)
+                spriteRenderer.flipX = false; // Facing right
+            if (BoneRoot)
+            {
+                BoneRoot.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            }
+        }
         else if (movement.x < 0)
-            spriteRenderer.flipX = true; // Facing left
+        {
+            if (spriteRenderer)
+                spriteRenderer.flipX = true; // Facing left
+            if (BoneRoot)
+                BoneRoot.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+        }
 
         // Allow jumping only when the player is on the ground
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
@@ -44,6 +62,17 @@ public class PlayerMove : MonoBehaviour
             canJump = false; // Set canJump to false to prevent double jumping
             animator.SetTrigger("Pulando"); // Trigger the Jump animation
         }
+
+        if(Input.GetButtonDown("Fire1"))
+        {
+            animator.SetTrigger("Atacando"); // Trigger the Attack animation
+            Invoke("FireMagic", 0.35f); // Delay the magic firing to sync with the animation
+        }
+    }
+
+    void FireMagic()
+    {
+        if (Magic) Magic.Emit(10);
     }
     // FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
     void FixedUpdate()
@@ -52,8 +81,14 @@ public class PlayerMove : MonoBehaviour
         if (!canMove) return;
 
         // Move the player based on input and speed keeping the current vertical velocity
-        Vector3 newMovement = new Vector3(movement.x * speed, rb.linearVelocity.y, 0);
-        rb.linearVelocity = newMovement;
+        //Vector3 newMovement = new Vector3(movement.x * speed, rb.linearVelocity.y, 0);
+        //rb.linearVelocity = newMovement;
+
+        // Reduz a força aplicada conforme a velocidade aumenta
+        float velocityMultiplier = 1 / (1 + Mathf.Abs(rb.linearVelocityX));
+
+        rb.AddForce(new Vector2(movement.x * speed * velocityMultiplier, 0), ForceMode2D.Force);
+
         animator.SetFloat("Velocidade", Mathf.Abs(movement.x)); // Update the Speed parameter in the Animator
 
         // Raycast downwards to check the distance to the ground

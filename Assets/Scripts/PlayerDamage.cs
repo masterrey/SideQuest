@@ -44,7 +44,7 @@ public class PlayerDamage : MonoBehaviour
         playerMove.canMove = false;
         collider.enabled = false; // Disable enemy collider to prevent further collisions
         playerMove.rb.AddForce(new Vector2(0, playerMove.knockbackForce), ForceMode2D.Impulse); // Apply upward force on death
-        Destroy(gameObject, 3f); // Destroy the player object after 1 second
+        Destroy(gameObject, 10f); // Destroy the player object after 1 second
 
     }
 }
